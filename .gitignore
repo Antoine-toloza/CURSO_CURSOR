@@ -1,0 +1,32 @@
+# Entorno virtual de Python (solo Lib, Scripts, etc. - NO el código del curso)
+.venv/Lib/
+.venv/Scripts/
+.venv/Include/
+.venv/share/
+.venv/pyvenv.cfg
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Variables de entorno
+.env
+.env.local
+*.env
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Imágenes generadas (opcional - quitar si quieres subirlas)
+# *.png

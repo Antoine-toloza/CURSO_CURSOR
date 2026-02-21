@@ -1,0 +1,7 @@
+# Entorno virtual: ignorar solo Lib, Scripts, Include, share
+# Los proyectos del curso (analisis_de_datos_basico, etc.) SÍ se suben
+Lib/
+Scripts/
+Include/
+share/
+pyvenv.cfg
