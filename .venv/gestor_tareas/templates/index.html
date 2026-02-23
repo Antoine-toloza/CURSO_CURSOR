@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            max-width: 560px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            color: #333;
+        }
+        h1 {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .form-agregar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .form-agregar input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .form-agregar input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+        .form-agregar button {
+            padding: 0.75rem 1.25rem;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .form-agregar button:hover {
+            background: #1d4ed8;
+        }
+        .lista-tareas {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .tarea {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .tarea.hecho {
+            opacity: 0.7;
+        }
+        .tarea.hecho .tarea-texto {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+        .tarea-texto {
+            flex: 1;
+        }
+        .tarea-boton {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.875rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .tarea-boton.completar {
+            background: #22c55e;
+            color: white;
+        }
+        .tarea-boton.completar:hover {
+            background: #16a34a;
+        }
+        .tarea.hecho .tarea-boton.completar {
+            background: #94a3b8;
+            cursor: default;
+            pointer-events: none;
+        }
+        .vacio {
+            text-align: center;
+            color: #64748b;
+            padding: 2rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestor de Tareas</h1>
+
+    <form class="form-agregar" action="/agregar" method="POST">
+        <input type="text" name="texto" placeholder="Escribe una nueva tarea..." required autofocus>
+        <button type="submit">Añadir</button>
+    </form>
+
+    <ul class="lista-tareas">
+        {% if tareas %}
+            {% for tarea in tareas %}
+            <li class="tarea {% if tarea['hecho'] %}hecho{% endif %}">
+                <span class="tarea-texto">
+                    {% if tarea['hecho'] %}
+                    <s>{{ tarea['texto'] }}</s>
+                    {% else %}
+                    {{ tarea['texto'] }}
+                    {% endif %}
+                </span>
+                {% if not tarea['hecho'] %}
+                <a class="tarea-boton completar" href="/completar/{{ tarea['id'] }}">Completar</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        {% else %}
+            <li class="vacio">No hay tareas. ¡Añade una arriba!</li>
+        {% endif %}
+    </ul>
+</body>
+</html>
